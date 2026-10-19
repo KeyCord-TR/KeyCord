@@ -95,39 +95,6 @@ saldırı tespit sistemi (IDS), dosya bütünlük izleme (SHA-256), Fernet ile
 
 ---
 
-## Hızlı kurulum (Quickstart)
-
-```bash
-git clone https://github.com/Keremcm/KeyCord
-cd KeyCord
-pip install -r requirements.txt
-
-cp .env.example .env
-# SECRET_KEYS, LOG_ENCRYPTION_KEY ve MASTER_INVITE_CODE değerlerini doldurun
-
-# Veritabanını oluşturun
-python -c "from app import create_app, db; a,_ = create_app(); a.app_context().push(); db.create_all()"
-
-# Başlatın (arka plan servisleri otomatik devreye girer)
-KC_HOST=0.0.0.0 KC_PORT=8005 python main.py
-```
-
-Üretimde:
-
-```bash
-gunicorn -k eventlet -w 1 --bind 0.0.0.0:8005 main:app
-```
-
-Yalnızca yerelden erişecekseniz bu hâliyle çalışır. Başka bir cihazdan
-bağlanacaksanız CORS + Socket.IO origin kontrolü istekleri reddettiği için
-`.env` içinde kendi adresinizi tanımlayın:
-
-```bash
-ALLOWED_ORIGINS=http://192.168.1.50:8005
-```
-
----
-
 ## Güvenlik ve şeffaflık (Security & transparency)
 
 Gizlilik iddia edilmez, **ölçülür ve yayımlanır**.
